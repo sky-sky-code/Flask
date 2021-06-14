@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="header__item">
+                <img src="{{ url_for('static', filename='image/search.png') }}" alt="" class="form__logo">
+                <form class="form" method="GET">
+                    <div class="search__input">
+                        <input type="text" class="input__control" name="text" value="{{ request.args.get('text', '') }}">
+                    </div>
+                    <div class="search__button">
+                        <button class="btn__control" type="submit">
+                            <div class="search__text">Найти</div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="header__item">
+                <img src="{{ url_for('static', filename='image/trash.png') }}" alt="" class="form__logo">
+                <form class="form" action="/" method="GET">
+                    <div class="delete__input">
+                        <input type="number" class="input__control" name="id" value="{{ request.args.get('id', '') }}">
+                    </div>
+                    <div class="delete__button">
+                        <button class="btn__control">
+                            <div class="btn__text">Удалить</div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container">
+        <div class="search__result">
+            {% for item in post %}
+            <div class="result__item">
+                <div class="post__id">
+                    id - {{ item.id }}
+                </div>
+                <div class="result__created">{{ item.created_date }}</div>
+                <div class="result__rubrick">{{ item.rubrics }}</div>
+                <div class="result__text">
+                    {{ item.text }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
